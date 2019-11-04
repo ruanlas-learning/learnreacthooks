@@ -1,21 +1,33 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {useState} from 'react';
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
+function App(){
+    const [tarefas, setTarefas] = useState([
+        'Pagar a conta de luz',
+        'Estudar React Hooks'
+    ]);
+
+    const [titulo, setTitulo] = useState('Hooks');
+    const [input, setInput] = useState('');
+
+    function handleAdd(){
+        // setTarefas([...tarefas, 'Aprender JavaScript']);
+        setTarefas([...tarefas, input]);
+        setInput('');
+    }
+
+    return(
+        <div>
+            <h1>{titulo}</h1>
+            <ul>
+                {tarefas.map(tarefa => (
+                    <li key={tarefa}>{tarefa}</li>
+                ))
+                }
+            </ul>
+            <input type="text" value={input} onChange={ (event) => setInput(event.target.value) }/>
+            <button type="button" onClick={handleAdd}>Adicionar</button>
         </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
     );
-  }
 }
 
 export default App;
