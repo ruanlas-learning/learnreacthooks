@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useMemo} from 'react';
+import React, {useState, useEffect, useMemo, useCallback} from 'react';
 
 function App(){
     const [tarefas, setTarefas] = useState([
@@ -25,15 +25,22 @@ function App(){
 
     }, []);// executa quando o componente é criado (componentDidMount)
 
-    function handleAdd(){
+    // function handleAdd(){
+    //     // setTarefas([...tarefas, 'Aprender JavaScript']);
+    //     setTarefas([...tarefas, input]);
+    //     setInput('');
+    // }
+
+    const handleAdd = useCallback(() => {
         // setTarefas([...tarefas, 'Aprender JavaScript']);
         setTarefas([...tarefas, input]);
         setInput('');
-    }
+    }, [input, tarefas]); //faz com que essa função não seja recriada toda vez que é inserido algo na state, fazendo consumir processamento
 
     const totalTarefas = useMemo( ()=> {
         return tarefas.length;
-    }, [tarefas]); //é executado somente quando 'tarefas' sofrer alteração, passando o valor do cálculo para total tarefas
+    }, [tarefas]); //é executado somente quando 'tarefas' sofrer alteração, passando o valor do cálculo para total tarefas. Evita o processamento
+    // desnecessário de cálculos que ocorrem quando a view é atualizada
 
     return(
         <div>
