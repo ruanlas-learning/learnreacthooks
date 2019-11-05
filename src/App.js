@@ -8,6 +8,7 @@ function App(){
 
     const [titulo, setTitulo] = useState('Hooks');
     const [input, setInput] = useState('');
+    const [contador, setContador] = useState(0);
 
     function handleAdd(){
         // setTarefas([...tarefas, 'Aprender JavaScript']);
@@ -26,6 +27,10 @@ function App(){
             </ul>
             <input type="text" value={input} onChange={ (event) => setInput(event.target.value) }/>
             <button type="button" onClick={handleAdd}>Adicionar</button>
+            <div>
+                <p>You clicked {contador} times</p>
+                <button onClick={ ()=> setContador(contador + 1) }>Aumentar</button>
+            </div>
         </div>
     );
 }
