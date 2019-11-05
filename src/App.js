@@ -1,14 +1,29 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 
 function App(){
     const [tarefas, setTarefas] = useState([
-        'Pagar a conta de luz',
-        'Estudar React Hooks'
+        // 'Pagar a conta de luz',
+        // 'Estudar React Hooks'
     ]);
 
     const [titulo, setTitulo] = useState('Hooks');
     const [input, setInput] = useState('');
     const [contador, setContador] = useState(0);
+
+    useEffect( () => {
+        console.log("Houve alteração em tarefas");
+        localStorage.setItem('tarefas', JSON.stringify(tarefas));
+    }, [tarefas]); //monitora alteração no state 'tarefas' (componentDidUpdate)
+
+    useEffect( ()=> {
+        console.log("componente foi criado");
+        const tarefasStorage = localStorage.getItem('tarefas');
+
+        if(tarefasStorage){
+            setTarefas(JSON.parse(tarefasStorage));
+        }
+
+    }, []);// executa quando o componente é criado (componentDidMount)
 
     function handleAdd(){
         // setTarefas([...tarefas, 'Aprender JavaScript']);
